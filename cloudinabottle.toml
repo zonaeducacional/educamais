@@ -8,4 +8,5 @@ image = "Dockerfile"
 port = 80
 
 [resources]
-memory = "512MB"
+memory_mb = 256
+build_memory_mb = 3072
