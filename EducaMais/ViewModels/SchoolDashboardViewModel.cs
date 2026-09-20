@@ -11,9 +11,6 @@ using System.Text.Json;
 
 namespace EducaMais.ViewModels;
 
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 
 
 public partial class ReportCardLine : ObservableObject

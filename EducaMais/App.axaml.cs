@@ -11,7 +11,7 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+        
     }
 
     public override void OnFrameworkInitializationCompleted()
