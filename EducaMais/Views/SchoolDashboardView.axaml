@@ -1,0 +1,402 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EducaMais.ViewModels"
+             xmlns:models="using:EducaMais.Models"
+             x:DataType="vm:SchoolDashboardViewModel"
+             x:Class="EducaMais.Views.SchoolDashboardView"
+             x:Name="RootControl">
+  
+  <UserControl.Styles>
+    <Style Selector="Button.sidebar">
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Left"/>
+      <Setter Property="Padding" Value="15"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#444444"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#a98a44"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Button.danger_ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="Red"/>
+    </Style>
+    <Style Selector="Button.edit_ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#666666"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid>
+    <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="250" PaneBackground="#e8e8e8">
+      <SplitView.Pane>
+        <StackPanel Spacing="10" Margin="0,20">
+          <TextBlock Text="Educa+" FontSize="28" FontWeight="ExtraBold" Foreground="#a98a44" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+          
+          <Button Content="📊 Visão Geral" Command="{Binding ShowOverviewCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          <Button Content="👨‍🏫 Professores" Command="{Binding ShowTeachersCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          <Button Content="🏫 Turmas" Command="{Binding ShowClassesCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          <Button Content="🎓 Alunos" Command="{Binding ShowStudentsCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          
+          <Button Content="🚪 Sair (Voltar)" Command="{Binding LogoutCommand}" Classes="sidebar" Margin="0,30,0,0" Foreground="#d93025" FontWeight="Bold"/>
+        </StackPanel>
+      </SplitView.Pane>
+
+      <SplitView.Content>
+        <Grid Background="#f4f6f8">
+          <ScrollViewer>
+            <StackPanel Margin="40" Spacing="30">
+              
+              <!-- HEADER -->
+              <Border Background="White" CornerRadius="12" Padding="25" BoxShadow="0 4 15 0 #05000000">
+                <StackPanel Orientation="Horizontal" Spacing="20" VerticalAlignment="Center">
+                  <Border Background="#fdf3de" CornerRadius="50" Width="64" Height="64">
+                    <TextBlock Text="🏫" FontSize="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                  </Border>
+                  <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Secretaria Escolar" FontSize="14" Foreground="#999999" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SchoolName}" FontSize="28" FontWeight="Black" Foreground="#333333"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+
+              <!-- MÓDULO VISÃO GERAL -->
+              <StackPanel Spacing="25" IsVisible="{Binding IsOverviewVisible}">
+                  <TextBlock Text="Indicadores da Unidade" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                  <UniformGrid Columns="3">
+                    <Border Background="White" CornerRadius="12" Padding="20" Margin="0,0,10,0" BoxShadow="0 2 10 0 #05000000">
+                      <StackPanel Spacing="15">
+                        <TextBlock Text="👨‍🏫" FontSize="24"/>
+                        <TextBlock Text="{Binding TotalTeachers}" FontSize="28" FontWeight="Black" Foreground="#333333"/>
+                        <TextBlock Text="Professores" FontSize="13" Foreground="#999999"/>
+                      </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Padding="20" Margin="10,0,10,0" BoxShadow="0 2 10 0 #05000000">
+                      <StackPanel Spacing="15">
+                        <TextBlock Text="🏫" FontSize="24"/>
+                        <TextBlock Text="{Binding TotalClasses}" FontSize="28" FontWeight="Black" Foreground="#333333"/>
+                        <TextBlock Text="Turmas" FontSize="13" Foreground="#999999"/>
+                      </StackPanel>
+                    </Border>
+                    <Border Background="White" CornerRadius="12" Padding="20" Margin="10,0,0,0" BoxShadow="0 2 10 0 #05000000">
+                      <StackPanel Spacing="15">
+                        <TextBlock Text="🎓" FontSize="24"/>
+                        <TextBlock Text="{Binding TotalStudents}" FontSize="28" FontWeight="Black" Foreground="#333333"/>
+                        <TextBlock Text="Alunos" FontSize="13" Foreground="#999999"/>
+                      </StackPanel>
+                    </Border>
+                  </UniformGrid>
+              </StackPanel>
+
+              <!-- MÓDULO TURMAS -->
+              <StackPanel Spacing="25" IsVisible="{Binding IsClassesVisible}">
+                  <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Text="Gestão de Turmas" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                    <Button Grid.Column="1" Classes="primary" Content="Nova Turma" Command="{Binding AddClassCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                  </Grid>
+
+                  <ItemsControl ItemsSource="{Binding Classes}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,10" BoxShadow="0 2 5 0 #05000000">
+                          <Grid ColumnDefinitions="*, *, Auto">
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" FontSize="16" Foreground="#333333" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Turno" FontSize="11" Foreground="#999999"/>
+                                <TextBlock Text="{Binding Shift}" FontSize="14" Foreground="#a98a44" FontWeight="Bold"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10">
+                              <Button Classes="edit_ghost" Content="Editar" Command="{ReflectionBinding #RootControl.DataContext.EditClassCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                              <Button Classes="danger_ghost" Content="Excluir" Command="{ReflectionBinding #RootControl.DataContext.DeleteClassCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+              </StackPanel>
+
+              <!-- MÓDULO PROFESSORES -->
+              <StackPanel Spacing="25" IsVisible="{Binding IsTeachersVisible}">
+                  <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Text="Quadro de Professores" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                    <Button Grid.Column="1" Classes="primary" Content="Novo Professor" Command="{Binding AddTeacherCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                  </Grid>
+
+                  <ItemsControl ItemsSource="{Binding Teachers}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,10" BoxShadow="0 2 5 0 #05000000">
+                          <Grid ColumnDefinitions="2*, 2*, Auto">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                              <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
+                              <TextBlock Text="{Binding Email}" FontSize="12" Foreground="#999999"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Disciplinas" FontSize="11" Foreground="#999999"/>
+                                <ItemsControl ItemsSource="{Binding Subjects}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#fdf3de" CornerRadius="4" Padding="6,2" Margin="0,0,5,5">
+                                                <TextBlock Text="{Binding}" FontSize="11" Foreground="#a98a44" FontWeight="Bold"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                              <Button ToolTip.Tip="Acessar Professor" Command="{ReflectionBinding #RootControl.DataContext.AccessTeacherCommand}" CommandParameter="{Binding}" Background="#fdf3de" Foreground="#a98a44" CornerRadius="6" FontWeight="SemiBold" Padding="10,8"><TextBlock Text="Acessar"/></Button>
+                              <Button Classes="edit_ghost" Content="Editar" Command="{ReflectionBinding #RootControl.DataContext.EditTeacherCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                              <Button Classes="danger_ghost" Content="Excluir" Command="{ReflectionBinding #RootControl.DataContext.DeleteTeacherCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+              </StackPanel>
+
+              <!-- MÓDULO ALUNOS -->
+              <StackPanel Spacing="25" IsVisible="{Binding IsStudentsVisible}">
+                  <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Text="Gestão de Alunos" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                        <Button Content="Importar CSV" Command="{Binding ImportCsvCommand}" Background="#e0e0e0" Foreground="#333333" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                        <Button Classes="primary" Content="Novo Aluno" Command="{Binding AddStudentCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                    </StackPanel>
+                  </Grid>
+                  
+                  <StackPanel Spacing="5">
+                      <TextBlock Text="Filtrar por Turma" FontSize="12" FontWeight="Bold" Foreground="#666666"/>
+                      <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClassFilter}" HorizontalAlignment="Stretch" PlaceholderText="Selecione a Turma">
+                          <ComboBox.ItemTemplate>
+                              <DataTemplate>
+                                  <TextBlock Text="{Binding Name}" />
+                              </DataTemplate>
+                          </ComboBox.ItemTemplate>
+                      </ComboBox>
+                  </StackPanel>
+
+                  <ItemsControl ItemsSource="{Binding Students}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Border Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,10" BoxShadow="0 2 5 0 #05000000">
+                          <Grid ColumnDefinitions="*, *, Auto">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                              <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="15" Foreground="#333333"/>
+                              <TextBlock Text="{Binding Registration, StringFormat='Matrícula: {0}'}" FontSize="12" Foreground="#999999"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                              <Button ToolTip.Tip="Gerar Acesso (Login para Pais/Alunos)" Command="{ReflectionBinding #RootControl.DataContext.GenerateAccessCommand}" CommandParameter="{Binding}" Background="#fff3cd" Foreground="#856404" CornerRadius="6" FontWeight="SemiBold" Padding="10,8"><TextBlock Text="🔑 Acesso"/></Button>
+                              <Button ToolTip.Tip="Gerar Boletim Oficial" Command="{ReflectionBinding #RootControl.DataContext.OpenReportCardCommand}" CommandParameter="{Binding}" Background="#e6f4ea" Foreground="#28a745" CornerRadius="6" FontWeight="SemiBold" Padding="10,8"><TextBlock Text="Boletim"/></Button>
+                              <Button Classes="edit_ghost" Content="Editar" Command="{ReflectionBinding #RootControl.DataContext.EditStudentCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                              <Button Classes="danger_ghost" Content="Excluir" Command="{ReflectionBinding #RootControl.DataContext.DeleteStudentCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+              </StackPanel>
+
+            </StackPanel>
+          </ScrollViewer>
+
+          <!-- MODALS -->
+          <!-- TURMA MODAL -->
+          <Border Background="#80000000" IsVisible="{Binding IsClassModalOpen}" ZIndex="100">
+            <Border Background="White" CornerRadius="12" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="20">
+                <TextBlock Text="Dados da Turma" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Nome da Turma" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding EditingClass.Name}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                </StackPanel>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Turno" FontWeight="Bold" Foreground="#333333"/>
+                  <ComboBox ItemsSource="{Binding Shifts}" SelectedItem="{Binding EditingClass.Shift}" HorizontalAlignment="Stretch" Padding="15"/>
+                </StackPanel>
+                <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+                  <Button Grid.Column="0" Content="Cancelar" Command="{Binding CloseClassModalCommand}" Background="Transparent" Foreground="#666666" HorizontalAlignment="Left"/>
+                  <Button Grid.Column="1" Classes="primary" Content="Salvar" Command="{Binding SaveClassCommand}" FontWeight="Bold" HorizontalAlignment="Right" Padding="20,10" CornerRadius="6"/>
+                </Grid>
+              </StackPanel>
+            </Border>
+          </Border>
+
+          <!-- PROFESSOR MODAL -->
+          <Border Background="#80000000" IsVisible="{Binding IsTeacherModalOpen}" ZIndex="100">
+            <Border Background="White" CornerRadius="12" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="20">
+                <TextBlock Text="Dados do Professor" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Nome Completo" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding EditingTeacher.Name}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                </StackPanel>
+                <Grid ColumnDefinitions="*,*" Margin="0,0,0,10">
+                    <StackPanel Spacing="5" Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="E-mail" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBox Text="{Binding EditingTeacher.Email}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                    </StackPanel>
+                    <StackPanel Spacing="5" Grid.Column="1">
+                        <TextBlock Text="Telefone" FontWeight="Bold" Foreground="#333333"/>
+                        <TextBox Text="{Binding EditingTeacher.Phone}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Disciplinas (Separe por vírgula)" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding TeacherSubjectsInput}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0" Watermark="Ex: Matemática, Física"/>
+                </StackPanel>
+                
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Turmas Atribuídas" FontWeight="Bold" Foreground="#333333"/>
+                  <ItemsControl ItemsSource="{Binding TeacherClassesSelection}">
+                      <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                              <WrapPanel Orientation="Horizontal" />
+                          </ItemsPanelTemplate>
+                      </ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                              <CheckBox Content="{Binding ClassName}" IsChecked="{Binding IsSelected}" Margin="0,0,15,5" Foreground="#444444"/>
+                          </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+                <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+                  <Button Grid.Column="0" Content="Cancelar" Command="{Binding CloseTeacherModalCommand}" Background="Transparent" Foreground="#666666" HorizontalAlignment="Left"/>
+                  <Button Grid.Column="1" Classes="primary" Content="Salvar" Command="{Binding SaveTeacherCommand}" FontWeight="Bold" HorizontalAlignment="Right" Padding="20,10" CornerRadius="6"/>
+                </Grid>
+              </StackPanel>
+            </Border>
+          </Border>
+
+          <!-- ALUNO MODAL -->
+          <Border Background="#80000000" IsVisible="{Binding IsStudentModalOpen}" ZIndex="100">
+            <Border Background="White" CornerRadius="12" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="20">
+                <TextBlock Text="Dados do Aluno" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Nome do Aluno" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding EditingStudent.Name}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                </StackPanel>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Matrícula" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding EditingStudent.Registration}" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                </StackPanel>
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Turma" FontWeight="Bold" Foreground="#333333"/>
+                  <ComboBox ItemsSource="{Binding Classes}" SelectedValue="{Binding EditingStudent.ClassId}" SelectedValueBinding="{Binding Id}" HorizontalAlignment="Stretch" Padding="15">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                </StackPanel>
+                <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+                  <Button Grid.Column="0" Content="Cancelar" Command="{Binding CloseStudentModalCommand}" Background="Transparent" Foreground="#666666" HorizontalAlignment="Left"/>
+                  <Button Grid.Column="1" Classes="primary" Content="Salvar" Command="{Binding SaveStudentCommand}" FontWeight="Bold" HorizontalAlignment="Right" Padding="20,10" CornerRadius="6"/>
+                </Grid>
+              </StackPanel>
+            </Border>
+          </Border>
+
+
+          <!-- ================= MODAL BOLETIM DO ALUNO ================= -->
+          <Border Grid.Row="0" Grid.RowSpan="2" Background="#80000000" IsVisible="{Binding IsReportCardModalOpen}" ZIndex="100">
+            <Border Background="White" CornerRadius="12" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="20">
+                <Grid ColumnDefinitions="*, Auto">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Boletim Escolar Oficial" FontSize="24" FontWeight="Black" Foreground="#333333"/>
+                        <TextBlock Text="{Binding ReportCardStudent.Name, StringFormat='{}Aluno(a): {0}'}" FontSize="16" Foreground="#666666" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Content="Fechar" Command="{Binding CloseReportCardCommand}" Background="Transparent" Foreground="#666666" VerticalAlignment="Top"/>
+                </Grid>
+
+                <Grid ColumnDefinitions="3*, *, *, *, *, *" Margin="0,15,0,10">
+                    <TextBlock Grid.Column="0" Text="Disciplina" FontWeight="Bold" Foreground="#999999"/>
+                    <TextBlock Grid.Column="1" Text="Unidade 1" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Text="Unidade 2" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="Unidade 3" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="4" Text="Unidade 4" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center" ToolTip.Tip="Apenas em modelo tradicional (4 bimestres)"/>
+                    <TextBlock Grid.Column="5" Text="Situação Final" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                </Grid>
+
+                <ScrollViewer MaxHeight="400">
+                    <ItemsControl ItemsSource="{Binding ReportCardLines}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#f0f0f0" BorderThickness="0,0,0,1" Padding="0,15">
+                                    <Grid ColumnDefinitions="3*, *, *, *, *, *">
+                                        <TextBlock Grid.Column="0" Text="{Binding Discipline}" FontSize="16" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                                        
+                                        <TextBlock Grid.Column="1" Text="{Binding DisplayU1}" FontSize="16" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding DisplayU2}" FontSize="16" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding DisplayU3}" FontSize="16" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding DisplayU4}" FontSize="16" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        
+                                        <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="2">
+                                            <TextBlock Text="{Binding FinalAverage, StringFormat={}{0:F1}}" FontSize="20" FontWeight="Black" Foreground="{Binding StatusColor}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Status}" FontSize="10" FontWeight="Bold" Foreground="{Binding StatusColor}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                
+                <!-- Mock de botão de impressão (Para o futuro) -->
+                <Button Content="🖨️ Imprimir / Salvar PDF" Command="{Binding PrintReportCardCommand}" Classes="primary" HorizontalAlignment="Right" Padding="20,10" CornerRadius="6" FontWeight="Bold" Margin="0,10,0,0"/>
+
+              </StackPanel>
+            </Border>
+          </Border>
+
+        </Grid>
+      </SplitView.Content>
+
+    </SplitView>
+  
+      <!-- MODAL GERAR ACESSO -->
+      <Border IsVisible="{Binding IsAccessModalOpen}" Background="#80000000" ZIndex="100">
+          <Border Background="White" Width="400" CornerRadius="10" Padding="30" HorizontalAlignment="Center" VerticalAlignment="Center" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="15">
+                  <TextBlock Text="Gerar Acesso" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                  <TextBlock Text="Copie as credenciais abaixo e entregue para o responsável do aluno." TextWrapping="Wrap" Foreground="#666666"/>
+                  
+                  <Border Background="#f8f9fa" BorderBrush="#e9ecef" BorderThickness="1" CornerRadius="5" Padding="15">
+                      <StackPanel Spacing="10">
+                          <TextBlock Text="{Binding AccessStudent.Name}" FontWeight="Bold" FontSize="16" Foreground="#333"/>
+                          <StackPanel Orientation="Horizontal" Spacing="10">
+                              <TextBlock Text="Usuário/Matrícula:" Foreground="#666" Width="120"/>
+                              <TextBlock Text="{Binding GeneratedLogin}" FontWeight="Bold" Foreground="#2b5a9b"/>
+                          </StackPanel>
+                          <StackPanel Orientation="Horizontal" Spacing="10">
+                              <TextBlock Text="Senha Gerada:" Foreground="#666" Width="120"/>
+                              <TextBlock Text="{Binding GeneratedPassword}" FontWeight="Black" FontSize="18" Foreground="#28a745"/>
+                          </StackPanel>
+                      </StackPanel>
+                  </Border>
+                  
+                  <TextBlock Text="{Binding AccessErrorMessage}" Foreground="Red" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                  
+                  <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" Margin="0,20,0,0">
+                      <Button Content="Cancelar" Background="Transparent" Foreground="#666" Command="{Binding CloseAccessModalCommand}"/>
+                      <Button Content="Confirmar Criação" Background="#2b5a9b" Foreground="White" Padding="15,8" CornerRadius="5" Command="{Binding ConfirmGenerateAccessCommand}"/>
+                  </StackPanel>
+              </StackPanel>
+          </Border>
+      </Border>
+
+</Grid>
+</UserControl>

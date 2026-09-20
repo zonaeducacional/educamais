@@ -1,0 +1,404 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EducaMais.ViewModels"
+             xmlns:models="using:EducaMais.Models"
+             x:DataType="vm:TeacherDashboardViewModel"
+             x:Class="EducaMais.Views.TeacherDashboardView"
+             x:Name="RootControl">
+  
+  <UserControl.Styles>
+    <Style Selector="Button.sidebar">
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Left"/>
+      <Setter Property="Padding" Value="15"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#444444"/>
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#a98a44"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Button.outline">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderBrush" Value="#a98a44"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Foreground" Value="#a98a44"/>
+    </Style>
+    <Style Selector="Button.danger_ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="Red"/>
+    </Style>
+    <Style Selector="Button.edit_ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#666666"/>
+    </Style>
+    <!-- Grade Inputs Style -->
+    <Style Selector="TextBox.grade">
+      <Setter Property="Width" Value="50"/>
+      <Setter Property="TextAlignment" Value="Center"/>
+      <Setter Property="Padding" Value="5"/>
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="BorderBrush" Value="#e0e0e0"/>
+      <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid>
+    <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="250" PaneBackground="#e8e8e8">
+      <SplitView.Pane>
+        <StackPanel Spacing="10" Margin="0,20">
+          <TextBlock Text="Educa+" FontSize="28" FontWeight="ExtraBold" Foreground="#a98a44" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+          
+          <Button Content="📅 Frequência" Command="{Binding ShowAttendanceCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          <Button Content="📝 Planejamento" Command="{Binding ShowLessonPlansCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          <Button Content="💯 Lançamento de Notas" Command="{Binding ShowGradesCommand}" Classes="sidebar" FontWeight="SemiBold"/>
+          
+          <Button Content="🚪 Sair (Voltar)" Command="{Binding LogoutCommand}" Classes="sidebar" Margin="0,30,0,0" Foreground="#d93025" FontWeight="Bold"/>
+        </StackPanel>
+      </SplitView.Pane>
+
+      <SplitView.Content>
+        <Grid Background="#f4f6f8" RowDefinitions="Auto, *">
+          
+          <!-- FILTROS FIXOS NO TOPO -->
+          <Border Grid.Row="0" Background="White" Padding="25" BoxShadow="0 4 15 0 #05000000" ZIndex="5">
+            <Grid ColumnDefinitions="Auto, *, *, Auto, Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="20" VerticalAlignment="Center" Margin="0,0,40,0">
+                  <Border Background="#fdf3de" CornerRadius="50" Width="48" Height="48">
+                    <TextBlock Text="👨‍🏫" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                  </Border>
+                  <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Painel do Professor" FontSize="12" Foreground="#999999" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding TeacherName}" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                  </StackPanel>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Spacing="5" Margin="0,0,10,0" VerticalAlignment="Center">
+                    <TextBlock Text="Turma" FontSize="12" FontWeight="Bold" Foreground="#666666"/>
+                    <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}" HorizontalAlignment="Stretch" PlaceholderText="Selecione a Turma">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" Spacing="5" Margin="10,0,10,0" VerticalAlignment="Center">
+                    <TextBlock Text="Disciplina" FontSize="12" FontWeight="Bold" Foreground="#666666"/>
+                    <ComboBox ItemsSource="{Binding Disciplines}" SelectedItem="{Binding SelectedDiscipline}" HorizontalAlignment="Stretch" PlaceholderText="Selecione a Disciplina"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="3" Spacing="5" Margin="20,0,10,0" VerticalAlignment="Center">
+                    <TextBlock Text="Status da Rede" FontSize="12" FontWeight="Bold" Foreground="#666666" HorizontalAlignment="Center"/>
+                    <Border Background="{Binding NetworkStatusColor}" Padding="15,8" CornerRadius="6">
+                        <TextBlock Text="{Binding SyncMessage}" Foreground="#333333" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+          </Border>
+
+          <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="40" Spacing="30">
+              
+              <!-- ================= MÓDULO FREQUÊNCIA ================= -->
+              <StackPanel Spacing="20" IsVisible="{Binding IsAttendanceVisible}">
+                  <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Text="Lista de Frequência" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="15">
+                        <DatePicker SelectedDate="{Binding AttendanceDate}" Margin="0,0,15,0"/>
+                        <Button Classes="primary" Content="Salvar Chamada" Command="{Binding SaveAttendanceBatchCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                    </StackPanel>
+                  </Grid>
+
+                  <!-- Assunto da Aula -->
+                  <Border Background="White" CornerRadius="12" Padding="20" BoxShadow="0 2 10 0 #05000000">
+                    <StackPanel Spacing="15">
+                        <TextBlock Text="Assunto da Aula" FontWeight="Bold" FontSize="14" Foreground="#666666"/>
+                        
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Button Grid.Column="0" Content="Importar CSV (Assuntos)" Command="{Binding ImportCsvTopicsCommand}" Classes="outline" CornerRadius="6" Padding="15,8" Margin="0,0,15,0"/>
+                            
+                            <ComboBox Grid.Column="1" ItemsSource="{Binding ImportedTopics}" SelectedItem="{Binding SelectedImportedTopic}" HorizontalAlignment="Stretch" PlaceholderText="Selecione um assunto importado ou digite abaixo" Margin="0,0,15,0"/>
+                        </Grid>
+
+                        <TextBox Text="{Binding CurrentLessonTopic}" Watermark="Descreva o assunto abordado nesta aula..." Padding="12" CornerRadius="6"/>
+                    </StackPanel>
+                  </Border>
+
+                  <Border Background="White" CornerRadius="12" Padding="20" BoxShadow="0 2 10 0 #05000000">
+                      <ItemsControl ItemsSource="{Binding AttendanceList}">
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <Grid ColumnDefinitions="*, Auto, Auto" Margin="0,10,0,10">
+                                <TextBlock Grid.Column="0" Text="{Binding Student.Name}" FontSize="15" FontWeight="SemiBold" Foreground="#333333" VerticalAlignment="Center"/>
+                                <CheckBox Grid.Column="1" Content="Presente" IsChecked="{Binding IsPresent}" FontWeight="Bold" Foreground="#28a745" Margin="0,0,20,0"/>
+                                <CheckBox Grid.Column="2" Content="Falta Justificada?" IsChecked="{Binding IsJustified}" FontWeight="Normal" Foreground="#888888" ToolTip.Tip="Marque caso a ausência tenha justificativa válida."/>
+                            </Grid>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                  </Border>
+              </StackPanel>
+
+
+              <!-- ================= MÓDULO NOTAS ================= -->
+              <StackPanel Spacing="20" IsVisible="{Binding IsGradesVisible}">
+                  
+                  <Grid ColumnDefinitions="*, Auto">
+                    <StackPanel Grid.Column="0" Spacing="5">
+                        <TextBlock Text="Lançamento de Notas" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                        <TextBlock Text="Gerencie a avaliação de sua turma de acordo com o modelo letivo." FontSize="14" Foreground="#666666"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Classes="primary" Content="Salvar Notas" Command="{Binding SaveGradesBatchCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold" VerticalAlignment="Top"/>
+                  </Grid>
+
+                  <!-- MENSAGEM DE ERRO (NOTAS) -->
+                  <TextBlock Text="{Binding GradesErrorMessage}" Foreground="Red" FontWeight="Bold" FontSize="14" IsVisible="{Binding GradesErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="0,0,0,10"/>
+
+                  <!-- Configurações -->
+                  <Border Background="White" CornerRadius="12" Padding="20" BoxShadow="0 2 10 0 #05000000">
+                      <Grid ColumnDefinitions="*, *">
+                          <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                              <TextBlock Text="Modelo de Avaliação:" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                              <ComboBox ItemsSource="{Binding GradeModels}" SelectedItem="{Binding SelectedGradeModel}" Width="250"/>
+                          </StackPanel>
+
+                          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="15" VerticalAlignment="Center" HorizontalAlignment="Right">
+                              <TextBlock Text="Média para Aprovação:" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                              <ComboBox ItemsSource="{Binding PassingGradeOptions}" SelectedItem="{Binding SelectedPassingGradeOption}" Width="90"/>
+                              <TextBox IsVisible="{Binding IsCustomPassingGradeVisible}" Text="{Binding CustomPassingGrade}" Width="60" Watermark="Ex: 6.0"/>
+                              <TextBlock Text="{Binding CurrentPassingGradeValue, StringFormat='(Mín: {0:F1})'}" Foreground="#999999" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                          </StackPanel>
+                      </Grid>
+                  </Border>
+
+                  <!-- PLANILHA TRADICIONAL (4 Bimestres) -->
+                  <Border Background="White" CornerRadius="12" Padding="20" BoxShadow="0 2 10 0 #05000000" IsVisible="{Binding IsTraditionalGradesVisible}">
+                      <StackPanel Spacing="10">
+                          <Grid ColumnDefinitions="3*, *, *, *, *, *, *" Margin="0,0,0,10">
+                              <TextBlock Grid.Column="0" Text="Aluno" FontWeight="Bold" Foreground="#999999"/>
+                              <TextBlock Grid.Column="1" Text="1º Bimestre" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="2" Text="2º Bimestre" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="3" Text="3º Bimestre" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="4" Text="4º Bimestre" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="5" Text="Média" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="6" Text="Status" FontWeight="Bold" Foreground="#999999" HorizontalAlignment="Center"/>
+                          </Grid>
+                          
+                          <ItemsControl ItemsSource="{Binding GradeList}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <Grid ColumnDefinitions="3*, *, *, *, *, *, *" Margin="0,5,0,5">
+                                    <TextBlock Grid.Column="0" Text="{Binding Student.Name}" FontSize="15" FontWeight="SemiBold" Foreground="#333333" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TradU1}" Margin="5,0" TextAlignment="Center"/>
+                                    <TextBox Grid.Column="2" Text="{Binding TradU2}" Margin="5,0" TextAlignment="Center"/>
+                                    <TextBox Grid.Column="3" Text="{Binding TradU3}" Margin="5,0" TextAlignment="Center"/>
+                                    <TextBox Grid.Column="4" Text="{Binding TradU4}" Margin="5,0" TextAlignment="Center"/>
+                                    
+                                    <TextBlock Grid.Column="5" Text="{Binding FinalAverage, StringFormat={}{0:F1}}" FontWeight="Black" FontSize="16" Foreground="#333333" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    
+                                    <Border Grid.Column="6" Background="{Binding StatusColor}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Status}" Foreground="White" FontWeight="Bold" FontSize="11"/>
+                                    </Border>
+                                </Grid>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                      </StackPanel>
+                  </Border>
+
+                  <Border Background="#fff9ed" CornerRadius="12" Padding="20" BorderBrush="#fbe2b5" BorderThickness="1" IsVisible="{Binding IsContinuousGradesVisible}">
+                      <StackPanel Spacing="15">
+                          
+                          <!-- Headers Unidades -->
+                          <Grid ColumnDefinitions="1.5*, *, *, *" Margin="0,0,0,10">
+                              <TextBlock Grid.Column="0" Text="Aluno" FontWeight="Bold" Foreground="#a98a44" VerticalAlignment="Center"/>
+                              <TextBlock Grid.Column="1" Text="Unidade 1 - máx. 10" FontWeight="Bold" Foreground="#a98a44" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="2" Text="Unidade 2 - máx. 10" FontWeight="Bold" Foreground="#a98a44" HorizontalAlignment="Center"/>
+                              <TextBlock Grid.Column="3" Text="Unidade 3 - máx. 10" FontWeight="Bold" Foreground="#a98a44" HorizontalAlignment="Center"/>
+                          </Grid>
+                          
+                          <!-- Headers A1 A2 A3 A4 -->
+                          <Grid ColumnDefinitions="1.5*, *, *, *" Margin="0,0,0,15">
+                              <Grid Grid.Column="1" ColumnDefinitions="*,*,*,*,*">
+                                  <TextBlock Grid.Column="0" Text="A1" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="1" Text="A2" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="2" Text="A3" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="3" Text="A4" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="4" Text="Total" Foreground="#888" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold"/>
+                              </Grid>
+                              <Grid Grid.Column="2" ColumnDefinitions="*,*,*,*,*">
+                                  <TextBlock Grid.Column="0" Text="A1" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="1" Text="A2" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="2" Text="A3" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="3" Text="A4" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="4" Text="Total" Foreground="#888" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold"/>
+                              </Grid>
+                              <Grid Grid.Column="3" ColumnDefinitions="*,*,*,*,*">
+                                  <TextBlock Grid.Column="0" Text="A1" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="1" Text="A2" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="2" Text="A3" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="3" Text="A4" Foreground="#888" HorizontalAlignment="Center" FontSize="11"/>
+                                  <TextBlock Grid.Column="4" Text="Total" Foreground="#888" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold"/>
+                              </Grid>
+                          </Grid>
+                          
+                          <!-- Linhas (Alunos) -->
+                          <ItemsControl ItemsSource="{Binding GradeList}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <Grid ColumnDefinitions="1.5*, *, *, *" Margin="0,5,0,15">
+                                    <TextBlock Grid.Column="0" Text="{Binding Student.Name}" FontSize="14" FontWeight="Bold" Foreground="#333333" VerticalAlignment="Center"/>
+                                    
+                                    <!-- Unidade 1 -->
+                                    <Grid Grid.Column="1" ColumnDefinitions="*,*,*,*,*">
+                                        <TextBox Grid.Column="0" Text="{Binding U1A1}" Classes="grade"/>
+                                        <TextBox Grid.Column="1" Text="{Binding U1A2}" Classes="grade"/>
+                                        <TextBox Grid.Column="2" Text="{Binding U1A3}" Classes="grade"/>
+                                        <TextBox Grid.Column="3" Text="{Binding U1A4}" Classes="grade"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding TotalU1, StringFormat='{}{0:F1} / 10'}" Foreground="{Binding TotalU1Color}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                    </Grid>
+                                    
+                                    <!-- Unidade 2 -->
+                                    <Grid Grid.Column="2" ColumnDefinitions="*,*,*,*,*">
+                                        <TextBox Grid.Column="0" Text="{Binding U2A1}" Classes="grade"/>
+                                        <TextBox Grid.Column="1" Text="{Binding U2A2}" Classes="grade"/>
+                                        <TextBox Grid.Column="2" Text="{Binding U2A3}" Classes="grade"/>
+                                        <TextBox Grid.Column="3" Text="{Binding U2A4}" Classes="grade"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding TotalU2, StringFormat='{}{0:F1} / 10'}" Foreground="{Binding TotalU2Color}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                    </Grid>
+                                    
+                                    <!-- Unidade 3 -->
+                                    <Grid Grid.Column="3" ColumnDefinitions="*,*,*,*,*">
+                                        <TextBox Grid.Column="0" Text="{Binding U3A1}" Classes="grade"/>
+                                        <TextBox Grid.Column="1" Text="{Binding U3A2}" Classes="grade"/>
+                                        <TextBox Grid.Column="2" Text="{Binding U3A3}" Classes="grade"/>
+                                        <TextBox Grid.Column="3" Text="{Binding U3A4}" Classes="grade"/>
+                                        <TextBlock Grid.Column="4" Text="{Binding TotalU3, StringFormat='{}{0:F1} / 10'}" Foreground="{Binding TotalU3Color}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
+                                    </Grid>
+                                </Grid>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                      </StackPanel>
+                  </Border>
+
+                  <!-- RESULTADO FINAL POR ALUNO -->
+                  <Border Background="White" CornerRadius="12" Padding="25" BoxShadow="0 2 10 0 #05000000" IsVisible="{Binding IsContinuousGradesVisible}">
+                      <StackPanel Spacing="15">
+                          <TextBlock Text="Resultado final por aluno" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                          <TextBlock Text="Soma das 3 unidades dividida por 3." FontSize="13" Foreground="#999999"/>
+                          
+                          <ItemsControl ItemsSource="{Binding GradeList}">
+                              <ItemsControl.ItemsPanel>
+                                  <ItemsPanelTemplate>
+                                      <WrapPanel Orientation="Horizontal" />
+                                  </ItemsPanelTemplate>
+                              </ItemsControl.ItemsPanel>
+                              <ItemsControl.ItemTemplate>
+                                  <DataTemplate>
+                                      <Border BorderBrush="#e0e0e0" BorderThickness="1" CornerRadius="8" Padding="15" Margin="0,0,15,15" Width="300">
+                                          <Grid ColumnDefinitions="*, Auto">
+                                              <StackPanel Grid.Column="0">
+                                                  <TextBlock Text="{Binding Student.Name}" FontSize="16" FontWeight="Bold" Foreground="#333"/>
+                                                  <TextBlock Text="{Binding TotalU1, StringFormat='U1 {0:F1}'}" FontSize="12" Foreground="#888" Margin="0,5,0,0"/>
+                                                  <TextBlock Text="{Binding TotalU2, StringFormat='U2 {0:F1}'}" FontSize="12" Foreground="#888"/>
+                                                  <TextBlock Text="{Binding TotalU3, StringFormat='U3 {0:F1}'}" FontSize="12" Foreground="#888"/>
+                                              </StackPanel>
+                                              <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                  <TextBlock Text="{Binding FinalAverage, StringFormat='{}{0:F1}'}" FontSize="24" FontWeight="Black" Foreground="#333" HorizontalAlignment="Right"/>
+                                                  <TextBlock Text="{Binding Status}" FontSize="12" FontWeight="Bold" Foreground="{Binding StatusColor}" HorizontalAlignment="Right"/>
+                                              </StackPanel>
+                                          </Grid>
+                                      </Border>
+                                  </DataTemplate>
+                              </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                      </StackPanel>
+                  </Border>
+              </StackPanel>
+              
+              <!-- ================= MÓDULO PLANEJAMENTO ================= -->
+              <StackPanel Spacing="25" IsVisible="{Binding IsLessonPlansVisible}">
+                  <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Text="Planejamentos" FontSize="26" FontWeight="Black" Foreground="#333333"/>
+                    <Button Grid.Column="1" Classes="primary" Content="Novo Plano" Command="{Binding AddLessonPlanCommand}" Padding="20,10" CornerRadius="8" FontWeight="Bold"/>
+                  </Grid>
+
+                  <ItemsControl ItemsSource="{Binding LessonPlans}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,10" BoxShadow="0 2 5 0 #05000000">
+                          <Grid ColumnDefinitions="*, *, Auto">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
+                                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,5,0,0">
+                                    <Border Background="#f0f0f0" CornerRadius="4" Padding="6,2">
+                                        <TextBlock Text="{Binding PlanType}" FontSize="11" FontWeight="Bold" Foreground="#666"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding Date, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="12" Foreground="#999999" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                              <Button Classes="edit_ghost" Content="Editar" Command="{ReflectionBinding #RootControl.DataContext.EditLessonPlanCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                              <Button Classes="danger_ghost" Content="Excluir" Command="{ReflectionBinding #RootControl.DataContext.DeleteLessonPlanCommand}" CommandParameter="{Binding}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+              </StackPanel>
+
+            </StackPanel>
+          </ScrollViewer>
+
+          <!-- ================= MODAL DE PLANEJAMENTO ================= -->
+          <Border Grid.Row="0" Grid.RowSpan="2" Background="#80000000" IsVisible="{Binding IsLessonPlanModalOpen}" ZIndex="100">
+            <Border Background="White" CornerRadius="12" Width="600" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="20">
+                <TextBlock Text="Detalhes do Planejamento" FontSize="20" FontWeight="Black" Foreground="#333333"/>
+                
+                <Grid ColumnDefinitions="*, *, Auto" Margin="0,0,0,10">
+                    <StackPanel Spacing="5" Grid.Column="0" Margin="0,0,15,0">
+                      <TextBlock Text="Tipo" FontWeight="Bold" Foreground="#333333"/>
+                      <ComboBox ItemsSource="{Binding PlanTypes}" SelectedItem="{Binding EditingLessonPlan.PlanType}" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                    <StackPanel Spacing="5" Grid.Column="1" Margin="0,0,15,0">
+                      <TextBlock Text="Título / Assunto" FontWeight="Bold" Foreground="#333333"/>
+                      <TextBox Text="{Binding EditingLessonPlan.Title}" Padding="10" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                    </StackPanel>
+                    <StackPanel Spacing="5" Grid.Column="2">
+                      <TextBlock Text="Data" FontWeight="Bold" Foreground="#333333"/>
+                      <DatePicker SelectedDate="{Binding LessonPlanDate}"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Spacing="10">
+                  <TextBlock Text="Anexos" FontWeight="Bold" Foreground="#333333"/>
+                  <Grid ColumnDefinitions="Auto, *">
+                      <Button Grid.Column="0" Classes="outline" Content="Anexar PDF / DOCX" Command="{Binding SimulateAttachmentCommand}" Padding="15,8" CornerRadius="6"/>
+                      <TextBlock Grid.Column="1" Text="{Binding EditingLessonPlan.AttachmentUrl}" Foreground="#1a73e8" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                  </Grid>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                  <TextBlock Text="Conteúdo / Metodologia (Opcional)" FontWeight="Bold" Foreground="#333333"/>
+                  <TextBox Text="{Binding EditingLessonPlan.Content}" Height="150" AcceptsReturn="True" TextWrapping="Wrap" Padding="15" CornerRadius="8" BorderBrush="#e0e0e0"/>
+                </StackPanel>
+                
+                <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+                  <Button Grid.Column="0" Content="Cancelar" Command="{Binding CloseLessonPlanModalCommand}" Background="Transparent" Foreground="#666666" HorizontalAlignment="Left"/>
+                  <Button Grid.Column="1" Classes="primary" Content="Salvar" Command="{Binding SaveLessonPlanCommand}" FontWeight="Bold" HorizontalAlignment="Right" Padding="20,10" CornerRadius="6"/>
+                </Grid>
+              </StackPanel>
+            </Border>
+          </Border>
+
+        </Grid>
+      </SplitView.Content>
+    </SplitView>
+  </Grid>
+</UserControl>

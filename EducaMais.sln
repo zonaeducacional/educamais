@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducaMais", "EducaMais\EducaMais.csproj", "{855C0807-6B1B-400A-90D1-6F0157973F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducaMais.Desktop", "EducaMais.Desktop\EducaMais.Desktop.csproj", "{12345678-1234-1234-1234-123456789012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducaMais.Browser", "EducaMais.Browser\EducaMais.Browser.csproj", "{22345678-1234-1234-1234-123456789012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducaMais.Android", "EducaMais.Android\EducaMais.Android.csproj", "{32345678-1234-1234-1234-123456789012}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{855C0807-6B1B-400A-90D1-6F0157973F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{855C0807-6B1B-400A-90D1-6F0157973F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{855C0807-6B1B-400A-90D1-6F0157973F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{855C0807-6B1B-400A-90D1-6F0157973F04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22345678-1234-1234-1234-123456789012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22345678-1234-1234-1234-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22345678-1234-1234-1234-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22345678-1234-1234-1234-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32345678-1234-1234-1234-123456789012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32345678-1234-1234-1234-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32345678-1234-1234-1234-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32345678-1234-1234-1234-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,41 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EducaMais.App"
+             xmlns:local="using:EducaMais"
+             RequestedThemeVariant="Light">
+             <!-- Force Light Theme to fix black popups -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        
+        <!-- Global Button Animations (Sinking effect) -->
+        <Style Selector="Button">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button:pointerover">
+            <Setter Property="RenderTransform" Value="translateY(2px)" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="translateY(4px)" />
+        </Style>
+
+        <!-- Override Avalonia Default Hover Colors for ALL buttons -->
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <!-- Keep the exact same background and foreground as normal state -->
+            <Setter Property="Background" Value="{TemplateBinding Background}" />
+            <Setter Property="BorderBrush" Value="{TemplateBinding BorderBrush}" />
+            <!-- Note: Foreground needs to be inherited cleanly -->
+        </Style>
+    </Application.Styles>
+</Application>

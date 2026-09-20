@@ -1,0 +1,103 @@
+# Avalonia UI
+
+> Avalonia UI is a cross-platform .NET UI framework for building desktop, mobile, and WebAssembly applications from a single codebase. It supports Windows, macOS, Linux, iOS, Android, and WebAssembly.
+
+## Company
+
+- Name: AvaloniaUI OÜ
+- Website: https://avaloniaui.net
+- GitHub: https://github.com/AvaloniaUI/Avalonia
+- Documentation: https://docs.avaloniaui.net
+- About: https://avaloniaui.net/about
+- Careers: https://avaloniaui.net/careers
+- Brand assets: https://avaloniaui.net/brand
+- Sponsorship: https://avaloniaui.net/sponsorship
+- Sustainability: https://avaloniaui.net/sustainability
+
+## Products
+
+### Avalonia UI (Open Source)
+Cross-platform .NET UI framework using XAML. Supports styling, data binding, animations, templates, and custom rendering. Free and open-source under the MIT license.
+- Product page: https://avaloniaui.net/avalonia
+- Getting started: https://avaloniaui.net/gettingstarted
+- Pricing: https://avaloniaui.net/pricing
+
+### Avalonia XPF
+Commercial product that runs existing WPF applications cross-platform on macOS, Linux, and more — without rewriting code.
+- Product page: https://avaloniaui.net/xpf
+- Third-party control compatibility list: https://avaloniaui.net/xpf/packages
+
+### Tooling
+Professional development tools included with Avalonia Plus and Pro tiers:
+- DevTools: https://avaloniaui.net/devtools — Runtime inspection and debugging
+- Parcel: https://avaloniaui.net/parcel — Cross-platform packaging and distribution
+- VS Code Extension: https://avaloniaui.net/vscode — XAML IntelliSense and live preview
+- Visual Studio Extension: https://avaloniaui.net/visual-studio — XAML designer and tooling
+
+### Components
+- Media Player: https://avaloniaui.net/media-player
+- On-Screen Keyboard: https://avaloniaui.net/on-screen-keyboard
+- PDF Viewer: https://avaloniaui.net/pdf-viewer
+- Markdown Viewer: https://avaloniaui.net/markdown-viewer
+- TreeDataGrid: https://avaloniaui.net/tree-data-grid
+
+## Platform Support
+- Windows: https://avaloniaui.net/avalonia/windows
+- macOS: https://avaloniaui.net/avalonia/macos
+- Linux: https://avaloniaui.net/avalonia/linux
+- Mobile (iOS & Android): https://avaloniaui.net/avalonia/mobile
+- WebAssembly: https://avaloniaui.net/avalonia/wasm
+
+## Key Pages
+- Blog: https://avaloniaui.net/blog
+- FAQ: https://avaloniaui.net/faq
+- Avalonia vs MAUI comparison: https://avaloniaui.net/maui-compare
+- Avalonia vs WinUI 3 comparison: https://avaloniaui.net/winui-compare
+- Avalonia vs Qt comparison: https://avaloniaui.net/qt-compare
+- Showcase: https://avaloniaui.net/showcase
+- Avalonia Enterprise: https://avaloniaui.net/enterprise
+- Professional Services: https://avaloniaui.net/services
+- Contact: https://avaloniaui.net/contact
+
+## Community & Social Proof
+- Avalonia MVPs: https://avaloniaui.net/mvps
+- Organizations using Avalonia: https://avaloniaui.net/organizations
+
+## Technology
+- Language: C# / .NET
+- UI markup: XAML (similar to WPF/UWP)
+- Rendering: Skia-based, GPU-accelerated
+- Architecture: MVVM pattern with reactive extensions
+- License: MIT (framework), Commercial (XPF, enterprise tooling)
+- What's New (Visual Studio extension release notes): https://avaloniaui.net/whats-new
+
+## Documentation & Resources
+- Full documentation: https://docs.avaloniaui.net
+- API reference: https://reference.avaloniaui.net
+- GitHub repository: https://github.com/AvaloniaUI/Avalonia
+- NuGet packages: https://www.nuget.org/profiles/AvaloniaUI
+- Samples & templates: https://github.com/AvaloniaUI/avalonia-dotnet-templates
+- Community chat: https://t.me/Avalonia
+
+## Comparisons
+Avalonia UI is commonly compared to — and migrated from — the following frameworks:
+- .NET MAUI: Avalonia supports Linux and WebAssembly natively; MAUI does not. Detailed comparison: https://avaloniaui.net/maui-compare. Migration guide: https://docs.avaloniaui.net/docs/migration/maui/
+- WPF: Avalonia uses similar XAML syntax but runs cross-platform. WPF is Windows-only. Migration guide: https://docs.avaloniaui.net/docs/migration/wpf/
+- WinForms: Move .NET desktop apps to a modern, XAML-based, cross-platform UI. Migration guide: https://docs.avaloniaui.net/docs/migration/winforms/
+- Uno Platform and WinUI: Avalonia uses similar XAML syntax but runs cross-platform; WinUI is Windows-only by design. Detailed WinUI comparison: https://avaloniaui.net/winui-compare. Migration guide: https://docs.avaloniaui.net/docs/migration/winui/
+- Delphi (VCL / FireMonkey): Bring Pascal-era desktop apps onto modern .NET with cross-platform reach. Migration notes: https://docs.avaloniaui.net/docs/migration/other/#from-delphi-vcl--firemonkey
+- Qt (QML / Widgets): Cross-platform desktop in .NET / C# instead of C++, with no per-developer or per-device framework licensing. Detailed comparison: https://avaloniaui.net/qt-compare. Migration notes: https://docs.avaloniaui.net/docs/migration/other/#from-qt-qml--qt-widgets
+- Electron: Avalonia produces native binaries with lower memory footprint. No bundled browser runtime. Migration notes: https://docs.avaloniaui.net/docs/migration/other/#from-electron
+- Blazor / ASP.NET MVC (web → desktop): Reuse .NET skills and MVVM patterns when bringing web apps to native desktop. Migration notes: https://docs.avaloniaui.net/docs/migration/other/#from-aspnet-mvc--blazor-web-to-desktop
+- Flutter: Both use custom rendering. Avalonia targets .NET / C# developers; Flutter uses Dart.
+
+## Enterprise & Support
+- Organisation-wide tools, controls, engineering support and LTS: https://avaloniaui.net/enterprise
+- Professional services (consulting, migration, training): https://avaloniaui.net/services
+- Reseller and distributor partnerships: https://avaloniaui.net/resellers
+- Contact sales: https://avaloniaui.net/contact?area=sales
+
+## Legal
+- Privacy policy: https://avaloniaui.net/legal/privacy-policy
+- Terms of service: https://avaloniaui.net/legal/terms-of-service
+- Legal center: https://avaloniaui.net/legal

@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EducaMais.ViewModels"
+             x:Class="EducaMais.Views.LoginView"
+             x:DataType="vm:LoginViewModel"
+             Background="#fffaf2">
+
+  <UserControl.Styles>
+    <Style Selector="Button.action">
+      <Setter Property="Background" Value="#afab50"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Button.action:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#8f8c42"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+  </UserControl.Styles>
+
+  <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Border Background="White" CornerRadius="26" BoxShadow="0 24 60 0 #1A25457D" Padding="40" Width="400">
+      <StackPanel Spacing="20">
+        
+        <TextBlock Text="Educa+" FontSize="28" FontWeight="ExtraBold" Foreground="#afab50" HorizontalAlignment="Center" />
+        <TextBlock Text="Acesso Administrativo" FontSize="20" FontWeight="Bold" Foreground="#403d28" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+        <StackPanel Spacing="5">
+          <TextBlock Text="E-mail" FontWeight="Bold" FontSize="14" Foreground="#403d28"/>
+          <TextBox Text="{Binding Username}" Watermark="admin@educamais.com" CornerRadius="12" Padding="12" BorderBrush="#ead9b8" />
+        </StackPanel>
+
+        <StackPanel Spacing="5">
+          <TextBlock Text="Senha" FontWeight="Bold" FontSize="14" Foreground="#403d28"/>
+          <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="Digite sua senha" CornerRadius="12" Padding="12" BorderBrush="#ead9b8" />
+        </StackPanel>
+
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="#c84c3f" FontWeight="SemiBold" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" TextWrapping="Wrap" />
+
+        <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+          <Button Grid.Column="0" Command="{Binding CancelCommand}" Content="← Voltar" Background="Transparent" Foreground="#666666" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+          <Button Grid.Column="1" Classes="action" Command="{Binding LoginCommand}" Content="Entrar no painel" FontWeight="Bold" CornerRadius="12" Padding="15,10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" IsEnabled="{Binding !IsBusy}" />
+        </Grid>
+
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>
