@@ -1,3 +1,4 @@
+[app]
 name = "educamais-web"
 version = "1.0.0"
 description = "Web App do EducaMais (WASM)"
