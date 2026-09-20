@@ -3,8 +3,8 @@ name = "educamais-web"
 version = "1.0.0"
 description = "Web App do EducaMais (WASM)"
 
-[runtime]
-dockerfile = "Dockerfile"
+[runtime.container]
+image = "Dockerfile"
 port = 80
 
 [resources]
