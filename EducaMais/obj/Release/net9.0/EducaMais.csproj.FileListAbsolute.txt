@@ -1,0 +1,15 @@
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/bin/Release/net9.0/EducaMais.deps.json
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/bin/Release/net9.0/EducaMais.dll
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/bin/Release/net9.0/EducaMais.pdb
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.csproj.AssemblyReference.cache
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/Avalonia/Resources.Inputs.cache
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/Avalonia/resources
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.GeneratedMSBuildEditorConfig.editorconfig
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.AssemblyInfoInputs.cache
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.AssemblyInfo.cs
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.csproj.CoreCompileInputs.cache
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.sourcelink.json
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.dll
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/refint/EducaMais.dll
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/EducaMais.pdb
+/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/Release/net9.0/ref/EducaMais.dll

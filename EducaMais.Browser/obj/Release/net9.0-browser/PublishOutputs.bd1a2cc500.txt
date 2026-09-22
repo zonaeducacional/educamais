@@ -1,0 +1,4 @@
+/tmp/publish-restore/runtimeconfig.template.json
+/tmp/publish-restore/EducaMais.Browser.runtimeconfig.json
+/tmp/publish-restore/e_sqlite3.a
+/tmp/publish-restore/web.config

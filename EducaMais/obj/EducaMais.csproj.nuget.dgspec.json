@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/EducaMais.csproj": {}
+  },
+  "projects": {
+    "/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/EducaMais.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/EducaMais.csproj",
+        "projectName": "EducaMais",
+        "projectPath": "/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/EducaMais.csproj",
+        "packagesPath": "/home/sergio/.nuget/packages/",
+        "outputPath": "/home/sergio/Área de trabalho/sistema-de-gestao-escolar/EducaMais/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/sergio/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/home/sergio/.dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Appwrite": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
+            "Avalonia": {
+              "target": "Package",
+              "version": "[12.1.2, )"
+            },
+            "Avalonia.Fonts.Inter": {
+              "target": "Package",
+              "version": "[11.3.22, )"
+            },
+            "Avalonia.Themes.Fluent": {
+              "target": "Package",
+              "version": "[11.3.22, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.4.2, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.11.285, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/sergio/.dotnet/sdk/9.0.318/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
