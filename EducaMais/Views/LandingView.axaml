@@ -22,109 +22,113 @@
     </Style>
   </UserControl.Styles>
 
-  <Grid ColumnDefinitions="5*, 4*">
-    <!-- Lado Esquerdo: Textos -->
-    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="100,0,50,0" Spacing="20">
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
       
-      <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,50">
-        <Image Source="avares://EducaMais/Assets/logo.png" Width="32" Height="32"/>
-        <TextBlock Text="Educa+" FontSize="24" FontWeight="Black" Foreground="#333333" VerticalAlignment="Center"/>
-      </StackPanel>
-
-      <Border Background="#fdf3de" CornerRadius="20" Padding="15,5" HorizontalAlignment="Left">
-        <TextBlock Text="GESTÃO QUE TRANSFORMA A EDUCAÇÃO" FontSize="11" FontWeight="Bold" Foreground="#a98a44" LetterSpacing="1"/>
-      </Border>
-      
-      <TextBlock Text="A escola conectada com o futuro." FontSize="54" FontWeight="Black" Foreground="#444444" TextWrapping="Wrap"/>
-      <TextBlock Text="Uma plataforma completa para simplificar a gestão escolar, valorizar professores e potencializar a aprendizagem." FontSize="18" Foreground="#666666" TextWrapping="Wrap" LineHeight="28"/>
-    </StackPanel>
-
-    <!-- Lado Direito: Seleção de Perfil -->
-    <Border Grid.Column="1" Background="White" CornerRadius="24" Padding="40" VerticalAlignment="Center" Margin="50,0,100,0" BoxShadow="0 10 30 0 #0D000000">
-      <StackPanel>
+      <!-- Lado Esquerdo: Textos -->
+      <StackPanel Width="350" Margin="20" Spacing="20" VerticalAlignment="Center">
         
-        <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,30">
-          <StackPanel Grid.Column="0">
-            <TextBlock Text="ACESSO RÁPIDO" FontSize="11" FontWeight="Bold" Foreground="#999999" LetterSpacing="1"/>
-            <TextBlock Text="Escolha seu perfil" FontSize="24" FontWeight="ExtraBold" Foreground="#333333" Margin="0,5,0,0"/>
-          </StackPanel>
-          <Button Grid.Column="1" Background="Transparent" Foreground="#a98a44" FontSize="20" Content="🔒" ToolTip.Tip="Acesso Administrativo" Command="{Binding SelectProfileCommand}" CommandParameter="superadmin"/>
-        </Grid>
+        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,30">
+          <!-- Removed Image just in case avares causes issues on WASM, or use a Text icon -->
+          <TextBlock Text="📚" FontSize="32" VerticalAlignment="Center"/>
+          <TextBlock Text="Educa+" FontSize="28" FontWeight="Black" Foreground="#333333" VerticalAlignment="Center"/>
+        </StackPanel>
 
-        <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="secretary">
-          <Grid ColumnDefinitions="Auto, *, Auto">
-            <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="48" Height="48" Margin="0,0,15,0">
-              <TextBlock Text="🏢" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-              <TextBlock Text="Secretaria Municipal" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
-              <TextBlock Text="Gestão completa da rede municipal de ensino." FontSize="12" Foreground="#888888" Margin="0,3,0,0"/>
-            </StackPanel>
-            <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="20" VerticalAlignment="Center"/>
-          </Grid>
-        </Button>
-
-        <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="school">
-          <Grid ColumnDefinitions="Auto, *, Auto">
-            <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="48" Height="48" Margin="0,0,15,0">
-              <TextBlock Text="🏫" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-              <TextBlock Text="Secretaria da Escola" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
-              <TextBlock Text="Organize professores, turmas e alunos." FontSize="12" Foreground="#888888" Margin="0,3,0,0"/>
-            </StackPanel>
-            <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="20" VerticalAlignment="Center"/>
-          </Grid>
-        </Button>
-
-        <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="teacher">
-          <Grid ColumnDefinitions="Auto, *, Auto">
-            <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="48" Height="48" Margin="0,0,15,0">
-              <TextBlock Text="🎓" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-              <TextBlock Text="Professor" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
-              <TextBlock Text="Mais tempo para ensinar. Menos burocracia." FontSize="12" Foreground="#888888" Margin="0,3,0,0"/>
-            </StackPanel>
-            <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="20" VerticalAlignment="Center"/>
-          </Grid>
-        </Button>
-
-        <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="student">
-          <Grid ColumnDefinitions="Auto, *, Auto">
-            <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="48" Height="48" Margin="0,0,15,0">
-              <TextBlock Text="🎒" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-              <TextBlock Text="Aluno / Família" FontWeight="Bold" FontSize="16" Foreground="#333333"/>
-              <TextBlock Text="Acompanhe frequência e notas oficiais." FontSize="12" Foreground="#888888" Margin="0,3,0,0"/>
-            </StackPanel>
-            <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="20" VerticalAlignment="Center"/>
-          </Grid>
-        </Button>
-
-
-      </StackPanel>
-    </Border>
-
-    <!-- MODAL DE LOGIN DO ALUNO -->
-    <Border Grid.ColumnSpan="2" IsVisible="{Binding IsStudentLoginModalOpen}" Background="#80000000" ZIndex="100">
-        <Border Background="White" Width="350" CornerRadius="15" Padding="30" HorizontalAlignment="Center" VerticalAlignment="Center" BoxShadow="0 10 30 0 #40000000">
-            <StackPanel Spacing="15">
-                <TextBlock Text="Acesso do Aluno" FontSize="20" FontWeight="Black" Foreground="#333333" HorizontalAlignment="Center"/>
-                <TextBlock Text="Digite a Matrícula e a Senha fornecida pela secretaria." TextWrapping="Wrap" Foreground="#666666" TextAlignment="Center"/>
-                
-                <TextBox Watermark="Matrícula" Text="{Binding StudentLogin}" Background="#f8f9fa" CornerRadius="5" Padding="10"/>
-                <TextBox Watermark="Senha" Text="{Binding StudentPassword}" PasswordChar="*" Background="#f8f9fa" CornerRadius="5" Padding="10"/>
-                
-                <TextBlock Text="{Binding StudentLoginError}" Foreground="Red" FontSize="12" HorizontalAlignment="Center"/>
-                
-                <Button Content="Entrar" Command="{Binding LoginStudentCommand}" Background="#2b5a9b" Foreground="White" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="10" CornerRadius="5" FontWeight="Bold"/>
-                <Button Content="Voltar" Command="{Binding CloseStudentModalCommand}" Background="Transparent" Foreground="#666" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-            </StackPanel>
+        <Border Background="#fdf3de" CornerRadius="20" Padding="15,5" HorizontalAlignment="Left">
+          <TextBlock Text="GESTÃO QUE TRANSFORMA A EDUCAÇÃO" FontSize="11" FontWeight="Bold" Foreground="#a98a44" LetterSpacing="1"/>
         </Border>
-    </Border>
+        
+        <TextBlock Text="A escola conectada com o futuro." FontSize="42" FontWeight="Black" Foreground="#444444" TextWrapping="Wrap"/>
+        <TextBlock Text="Uma plataforma completa para simplificar a gestão escolar, valorizar professores e potencializar a aprendizagem." FontSize="16" Foreground="#666666" TextWrapping="Wrap" LineHeight="26"/>
+      </StackPanel>
 
-  </Grid>
+      <!-- Lado Direito: Seleção de Perfil -->
+      <Border Width="350" Background="White" CornerRadius="24" Padding="30" VerticalAlignment="Center" Margin="20" BoxShadow="0 10 30 0 #0D000000">
+        <StackPanel>
+          
+          <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,30">
+            <StackPanel Grid.Column="0">
+              <TextBlock Text="ACESSO RÁPIDO" FontSize="11" FontWeight="Bold" Foreground="#999999" LetterSpacing="1"/>
+              <TextBlock Text="Escolha seu perfil" FontSize="22" FontWeight="ExtraBold" Foreground="#333333" Margin="0,5,0,0"/>
+            </StackPanel>
+            <Button Grid.Column="1" Background="Transparent" Foreground="#a98a44" FontSize="20" Content="🔒" ToolTip.Tip="Acesso Administrativo" Command="{Binding SelectProfileCommand}" CommandParameter="superadmin"/>
+          </Grid>
+
+          <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="secretary">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="40" Height="40" Margin="0,0,15,0">
+                <TextBlock Text="🏢" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+              </Border>
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Secretaria Municipal" FontWeight="Bold" FontSize="14" Foreground="#333333"/>
+                <TextBlock Text="Gestão completa da rede." FontSize="11" Foreground="#888888" Margin="0,3,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+              <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="18" VerticalAlignment="Center"/>
+            </Grid>
+          </Button>
+
+          <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="school">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="40" Height="40" Margin="0,0,15,0">
+                <TextBlock Text="🏫" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+              </Border>
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Secretaria da Escola" FontWeight="Bold" FontSize="14" Foreground="#333333"/>
+                <TextBlock Text="Professores, turmas e alunos." FontSize="11" Foreground="#888888" Margin="0,3,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+              <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="18" VerticalAlignment="Center"/>
+            </Grid>
+          </Button>
+
+          <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="teacher">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="40" Height="40" Margin="0,0,15,0">
+                <TextBlock Text="🎓" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+              </Border>
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Professor" FontWeight="Bold" FontSize="14" Foreground="#333333"/>
+                <TextBlock Text="Mais tempo para ensinar." FontSize="11" Foreground="#888888" Margin="0,3,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+              <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="18" VerticalAlignment="Center"/>
+            </Grid>
+          </Button>
+
+          <Button Classes="profile_card" Command="{Binding SelectProfileCommand}" CommandParameter="student">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <Border Grid.Column="0" Background="#f4f8f4" CornerRadius="8" Width="40" Height="40" Margin="0,0,15,0">
+                <TextBlock Text="🎒" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+              </Border>
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Aluno / Família" FontWeight="Bold" FontSize="14" Foreground="#333333"/>
+                <TextBlock Text="Acompanhe notas e faltas." FontSize="11" Foreground="#888888" Margin="0,3,0,0" TextWrapping="Wrap"/>
+              </StackPanel>
+              <TextBlock Grid.Column="2" Text="→" Foreground="#cccccc" FontSize="18" VerticalAlignment="Center"/>
+            </Grid>
+          </Button>
+
+        </StackPanel>
+      </Border>
+
+      <!-- MODAL DE LOGIN DO ALUNO (Tornando Responsivo) -->
+      <Panel IsVisible="{Binding IsStudentLoginModalOpen}" ZIndex="100">
+          <Border Background="#80000000" />
+          <Border Background="White" Width="320" CornerRadius="15" Padding="30" HorizontalAlignment="Center" VerticalAlignment="Center" BoxShadow="0 10 30 0 #40000000">
+              <StackPanel Spacing="15">
+                  <TextBlock Text="Acesso do Aluno" FontSize="20" FontWeight="Black" Foreground="#333333" HorizontalAlignment="Center"/>
+                  <TextBlock Text="Digite a Matrícula e a Senha fornecida pela secretaria." TextWrapping="Wrap" Foreground="#666666" TextAlignment="Center"/>
+                  
+                  <TextBox Watermark="Matrícula" Text="{Binding StudentLogin}" Background="#f8f9fa" CornerRadius="5" Padding="10"/>
+                  <TextBox Watermark="Senha" Text="{Binding StudentPassword}" PasswordChar="*" Background="#f8f9fa" CornerRadius="5" Padding="10"/>
+                  
+                  <TextBlock Text="{Binding StudentLoginError}" Foreground="Red" FontSize="12" HorizontalAlignment="Center"/>
+                  
+                  <Button Content="Entrar" Command="{Binding LoginStudentCommand}" Background="#2b5a9b" Foreground="White" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="10" CornerRadius="5" FontWeight="Bold"/>
+                  <Button Content="Voltar" Command="{Binding CloseStudentModalCommand}" Background="Transparent" Foreground="#666" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+              </StackPanel>
+          </Border>
+      </Panel>
+
+    </WrapPanel>
+  </ScrollViewer>
 </UserControl>
 
