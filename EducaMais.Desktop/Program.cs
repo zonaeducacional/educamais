@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using System;
 
 namespace EducaMais;
@@ -11,7 +11,7 @@ sealed class Program
     [STAThread]
     public static void Main(string[] args) 
     {
-        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+        // QuestPDF removido — não compatível com WASM (substituído por stub)
         System.AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
         {
             System.IO.File.AppendAllText("/tmp/educamais_crash.log", $"\n\n[AppDomain] Crash: {e.ExceptionObject}");
