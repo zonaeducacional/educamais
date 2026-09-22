@@ -7,6 +7,9 @@ description = "Web App do EducaMais (WASM)"
 image = "Dockerfile"
 port = 80
 
+[routing]
+public_paths = ["/"]
+
 [resources]
 memory_mb = 256
 build_memory_mb = 3072
