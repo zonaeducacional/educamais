@@ -27,7 +27,7 @@
     <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="100,0,50,0" Spacing="20">
       
       <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,0,0,50">
-        <Image Source="/Assets/logo.png" Width="32" Height="32"/>
+        <Image Source="avares://EducaMais/Assets/logo.png" Width="32" Height="32"/>
         <TextBlock Text="Educa+" FontSize="24" FontWeight="Black" Foreground="#333333" VerticalAlignment="Center"/>
       </StackPanel>
 
