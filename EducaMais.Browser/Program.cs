@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Browser;
-using Avalonia.ReactiveUI;
 using EducaMais;
 
 internal sealed partial class Program
@@ -14,7 +13,6 @@ internal sealed partial class Program
             Console.WriteLine("=== AVALONIA WASM STARTING ===");
             await BuildAvaloniaApp()
                 .WithInterFont()
-                .UseReactiveUI()
                 .StartBrowserAppAsync("out");
         }
         catch (Exception ex)
