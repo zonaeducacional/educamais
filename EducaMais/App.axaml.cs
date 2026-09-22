@@ -18,8 +18,14 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        
         try
         {
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (s, e) => {
+                Console.WriteLine("UNOBSERVED TASK EX: " + e.Exception.ToString());
+            };
+            
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
